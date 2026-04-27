@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NourishAI - Smart Food Choices</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-leaf"></i></div>
+                <span>NourishAI</span>
+            </div>
+            
+            <ul class="nav-links" id="sidebar-nav">
+                <li class="active"><a href="#" data-view="dashboard"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="#" data-view="meals"><i class="fa-solid fa-utensils"></i> Meals</a></li>
+                <li><a href="#" data-view="analytics"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+                <li><a href="#" data-view="habits"><i class="fa-solid fa-bullseye"></i> Habits</a></li>
+                <li><a href="#" data-view="settings"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            </ul>
+
+            <div class="user-profile" id="profile-btn" style="cursor: pointer;" title="Go to Settings">
+                <div class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=User&background=3b82f6&color=fff" alt="User Avatar">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Alex M.</span>
+                    <span class="user-status">Health Enthusiast</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="greeting">
+                    <h1 id="greeting-text">Good Morning, Alex</h1>
+                    <p>Let's make smart choices today.</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-bar" style="position: relative;">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="global-search" placeholder="Search foods, habits...">
+                        <div id="search-results" class="glass" style="display: none; position: absolute; top: 120%; left: 0; width: 100%; max-height: 300px; overflow-y: auto; z-index: 100; border-radius: var(--border-radius-sm); padding: 0.5rem; flex-direction: column; gap: 0.5rem;"></div>
+                    </div>
+                    <button class="btn-primary" id="log-meal-btn">
+                        <i class="fa-solid fa-plus"></i> Log Meal
+                    </button>
+                </div>
+            </header>
+
+            <div id="view-dashboard" class="page-view active">
+                <div class="dashboard-grid">
+                <!-- Smart Contextual Suggestion -->
+                <div class="card glass smart-suggestion col-span-2">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-wand-magic-sparkles gradient-text"></i> Smart Contextual Suggestion</h2>
+                        <span class="badge" id="context-badge">Lunchtime</span>
+                    </div>
+                    <div class="suggestion-content">
+                        <div class="suggestion-info">
+                            <h3 id="suggestion-title">Grilled Chicken Quinoa Bowl</h3>
+                            <p id="suggestion-reason">Based on your intense workout this morning and low protein intake yesterday, this high-protein, complex-carb meal will optimize your recovery.</p>
+                            <div class="macros">
+                                <span class="macro-badge protein" id="macro-protein">45g Protein</span>
+                                <span class="macro-badge carbs" id="macro-carbs">50g Carbs</span>
+                                <span class="macro-badge fat" id="macro-fat">15g Fat</span>
+                            </div>
+                        </div>
+                        <div class="suggestion-action">
+                            <button class="btn-outline" id="order-ingredients-btn">Order Ingredients</button>
+                            <button class="btn-primary" id="add-to-plan-btn">Add to Plan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health Score -->
+                <div class="card glass health-score">
+                    <h2>AI Health Score</h2>
+                    <div class="score-container">
+                        <div class="circular-progress" data-progress="85">
+                            <div class="inner-circle">
+                                <span class="score-value">85</span>
+                            </div>
+                        </div>
+                        <p class="score-status text-success">Excellent</p>
+                    </div>
+                    <p class="score-insight">Your consistency in hydration has boosted your score by 5 points this week!</p>
+                </div>
+
+                <!-- Today's Macros -->
+                <div class="card glass macros-tracker col-span-2">
+                    <h2>Today's Intake</h2>
+                    <div class="macros-grid">
+                        <div class="macro-card calories">
+                            <div class="macro-header">
+                                <i class="fa-solid fa-fire"></i>
+                                <span>Calories</span>
+                            </div>
+                            <div class="macro-amount">
+                                <h3>1,240</h3>
+                                <span>/ 2,200 kcal</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress fill-calories" style="width: 56%"></div></div>
+                        </div>
+                        <div class="macro-card protein">
+                            <div class="macro-header">
+                                <i class="fa-solid fa-drumstick-bite"></i>
+                                <span>Protein</span>
+                            </div>
+                            <div class="macro-amount">
+                                <h3>65g</h3>
+                                <span>/ 140g</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress fill-protein" style="width: 46%"></div></div>
+                        </div>
+                        <div class="macro-card carbs">
+                            <div class="macro-header">
+                                <i class="fa-solid fa-wheat-awn"></i>
+                                <span>Carbs</span>
+                            </div>
+                            <div class="macro-amount">
+                                <h3>120g</h3>
+                                <span>/ 250g</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress fill-carbs" style="width: 48%"></div></div>
+                        </div>
+                        <div class="macro-card fat">
+                            <div class="macro-header">
+                                <i class="fa-solid fa-droplet"></i>
+                                <span>Fat</span>
+                            </div>
+                            <div class="macro-amount">
+                                <h3>40g</h3>
+                                <span>/ 70g</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress fill-fat" style="width: 57%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Meals -->
+                <div class="card glass recent-meals">
+                    <div class="card-header">
+                        <h2>Recent Activity</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="meal-list" id="meal-list">
+                        <!-- Meal Items dynamically injected -->
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Meals View -->
+            <div id="view-meals" class="page-view" style="display: none;">
+                <div class="card glass" style="min-height: 500px;">
+                    <div class="card-header" style="margin-bottom: 2rem;">
+                        <h2><i class="fa-solid fa-utensils gradient-text"></i> Meals Journal</h2>
+                        <button class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;"><i class="fa-solid fa-filter"></i> Filter</button>
+                    </div>
+                    
+                    <div id="journal-meal-list" style="margin-bottom: 2rem;">
+                        <!-- Meal Items dynamically injected -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics View -->
+            <div id="view-analytics" class="page-view" style="display: none;">
+                <div class="dashboard-grid">
+                    <div class="card glass col-span-2">
+                        <h2><i class="fa-solid fa-chart-line gradient-text"></i> Caloric Trend (Last 7 Days)</h2>
+                        <div style="height: 300px; margin-top: 1rem; position: relative;">
+                            <canvas id="caloriesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card glass">
+                        <h2><i class="fa-solid fa-chart-pie gradient-text"></i> Macro Average</h2>
+                        <div style="height: 250px; margin-top: 2rem; position: relative; display: flex; justify-content: center;">
+                            <canvas id="macrosChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Habits View -->
+            <div id="view-habits" class="page-view" style="display: none;">
+                <div class="card glass">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-bullseye gradient-text"></i> Daily Habits Tracker</h2>
+                        <button class="btn-outline" style="padding: 0.4rem 1rem; font-size: 0.9rem;">+ New Habit</button>
+                    </div>
+                    
+                    <div id="habits-list" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                        <!-- Habits will be dynamically injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="view-settings" class="page-view" style="display: none;">
+                <div class="card glass">
+                    <h2><i class="fa-solid fa-gear gradient-text"></i> App Settings & Profile</h2>
+                    <div style="margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1rem;">Profile Overview</h3>
+                        <div style="display: flex; align-items: center; gap: 1.5rem; background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: var(--border-radius-sm);">
+                            <img class="settings-avatar" src="" alt="Avatar" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary-color);">
+                            <div>
+                                <h3 id="settings-name" style="font-size: 1.5rem;">User Name</h3>
+                                <p id="settings-goal" style="color: var(--primary-color); font-weight: 500;">Health Goal</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 3rem;">
+                            <button class="btn-outline" style="border-color: var(--danger); color: var(--danger);" onclick="localStorage.removeItem('nourishUser'); window.location.href='login.html';"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Logging Meal -->
+    <div class="modal-overlay" id="meal-modal">
+        <div class="modal glass">
+            <div class="modal-header">
+                <h2>Log a Meal</h2>
+                <button class="close-btn" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="ai-input-container">
+                    <textarea id="ai-meal-input" placeholder="Describe what you ate... (e.g., 'Had a bowl of oatmeal with blueberries and almonds')"></textarea>
+                    <button class="ai-analyze-btn" id="ai-analyze-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Analyze</button>
+                </div>
+                <div id="ai-analysis-result" style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: var(--border-radius-sm); border: 1px solid rgba(59, 130, 246, 0.3);">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;"><i class="fa-solid fa-check-circle"></i> Analysis Complete</h4>
+                    <p id="ai-analysis-text" style="font-size: 0.9rem; color: var(--text-secondary);"></p>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" id="confirm-log-btn">Log this Meal</button>
+                    </div>
+                </div>
+                <div class="image-upload-area">
+                    <i class="fa-solid fa-camera"></i>
+                    <p>Or upload a photo of your food</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

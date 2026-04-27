@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NourishAI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+        .login-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .input-group input:focus, .input-group select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+        .input-group select option {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+        .login-btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass login-card">
+        <div class="login-logo">
+            <div class="logo-icon"><i class="fa-solid fa-leaf"></i></div>
+            <span>NourishAI</span>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Welcome! Let's personalize your health journey.</p>
+        
+        <form id="login-form">
+            <div class="input-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="e.g. Alex Mercer" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="goal">Primary Health Goal</label>
+                <select id="goal" required>
+                    <option value="" disabled selected>Select a goal...</option>
+                    <option value="Health Enthusiast">Maintain Health</option>
+                    <option value="Weight Loss">Weight Loss</option>
+                    <option value="Muscle Gain">Muscle Gain</option>
+                    <option value="Endurance">Endurance Training</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary login-btn">
+                Get Started <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const goal = document.getElementById('goal').value;
+
+            if(name && goal) {
+                // Save to localStorage
+                localStorage.setItem('nourishUser', JSON.stringify({ name, goal }));
+                // Redirect to main app
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
